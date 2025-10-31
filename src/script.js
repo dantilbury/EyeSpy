@@ -5,21 +5,14 @@ const gridSize = 6;
 const minDelta = 5;
 const maxDelta = 100;
 let currentOddIndex = null;
-let audioUnlocked = false;
 
-const correctSound = document.getElementById('correctSound');
-const wrongSound = document.getElementById('wrongSound');
+// Create audio objects
+const correctSound = new Audio('https://www.soundjay.com/button/sounds/button-3.mp3');
+const wrongSound = new Audio('https://www.soundjay.com/button/sounds/button-10.mp3');
 
-// Unlock audio on first click
-document.body.addEventListener('click', () => {
-  if(!audioUnlocked){
-    correctSound.play().catch(()=>{});
-    correctSound.pause();
-    wrongSound.play().catch(()=>{});
-    wrongSound.pause();
-    audioUnlocked = true;
-  }
-}, { once: true });
+// Preload audio
+correctSound.load();
+wrongSound.load();
 
 function updateLivesDisplay() {
   const livesDiv = document.getElementById('livesDisplay');
@@ -43,30 +36,36 @@ function createGame() {
 
   currentOddIndex = Math.floor(Math.random() * gridSize * gridSize);
 
-  for(let i=0;i<gridSize*gridSize;i++){
+  for (let i = 0; i < gridSize * gridSize; i++) {
     const tile = document.createElement('div');
     tile.classList.add('tile');
     const tileColor = i === currentOddIndex ? oddColor : baseColor;
     tile.style.backgroundColor = tileColor;
     tile.style.borderColor = tileColor;
-    tile.addEventListener('click', ()=> checkTile(i===currentOddIndex, tile));
+
+    // Tile click event
+    tile.addEventListener('click', () => {
+      handleTileClick(i === currentOddIndex, tile);
+    });
+
     game.appendChild(tile);
   }
 }
 
-function checkTile(isCorrect, tileClicked){
+function handleTileClick(isCorrect, tileClicked) {
   const gameTiles = document.getElementById('game').querySelectorAll('.tile');
 
-  if(isCorrect){
+  if (isCorrect) {
+    // Play correct sound
     correctSound.currentTime = 0;
-    correctSound.play();
+    correctSound.play().catch(() => {});
 
     tileClicked.style.transform = 'scale(1.2)';
-    setTimeout(()=> tileClicked.style.transform = '', 150);
+    setTimeout(() => tileClicked.style.transform = '', 150);
 
     score++;
     document.getElementById('currentScore').textContent = `Current Score: ${score}`;
-    if(score > highScore) {
+    if (score > highScore) {
       highScore = score;
       document.getElementById('highScore').textContent = `Highest Score: ${highScore}`;
     }
@@ -74,33 +73,35 @@ function checkTile(isCorrect, tileClicked){
     createGame();
     document.getElementById('message').textContent = '';
   } else {
+    // Play wrong sound
     wrongSound.currentTime = 0;
-    wrongSound.play();
+    wrongSound.play().catch(() => {});
 
     lives--;
     updateLivesDisplay();
-    document.getElementById('message').textContent = lives > 0 
-      ? 'Wrong! Life used. Click any tile to continue.' 
+    document.getElementById('message').textContent = lives > 0
+      ? 'Wrong! Life used. Click any tile to continue.'
       : 'Game Over! Click any tile to restart.';
 
+    // Highlight correct tile
     gameTiles[currentOddIndex].classList.add('highlight');
 
-    gameTiles.forEach(tile=>{
-      tile.addEventListener('click', ()=> { 
+    gameTiles.forEach(tile => {
+      tile.addEventListener('click', () => {
         document.getElementById('message').textContent = '';
         createGame();
       }, { once: true });
     });
 
-    if(lives <= 0){
-      gameTiles.forEach(tile=>{
+    if (lives <= 0) {
+      gameTiles.forEach(tile => {
         tile.addEventListener('click', restartGame, { once: true });
       });
     }
   }
 }
 
-function restartGame(){
+function restartGame() {
   score = 0;
   lives = 1;
   document.getElementById('currentScore').textContent = `Current Score: ${score}`;
@@ -120,3 +121,4 @@ document.getElementById('shop').addEventListener('click', () => {
 
 updateLivesDisplay();
 createGame();
+
