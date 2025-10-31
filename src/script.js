@@ -6,9 +6,6 @@ const minDelta = 5;
 const maxDelta = 100;
 let currentOddIndex = null;
 
-const correctSound = document.getElementById('correctSound');
-const wrongSound = document.getElementById('wrongSound');
-
 function updateLivesDisplay() {
   const livesDiv = document.getElementById('livesDisplay');
   livesDiv.textContent = `Lives: ${lives}`;
@@ -50,9 +47,6 @@ function handleTileClick(isCorrect, tileClicked) {
   const gameTiles = document.getElementById('game').querySelectorAll('.tile');
 
   if (isCorrect) {
-    correctSound.currentTime = 0;
-    correctSound.play().catch(()=>{});
-
     tileClicked.style.transform = 'scale(1.2)';
     setTimeout(() => tileClicked.style.transform = '', 150);
 
@@ -66,9 +60,6 @@ function handleTileClick(isCorrect, tileClicked) {
     createGame();
     document.getElementById('message').textContent = '';
   } else {
-    wrongSound.currentTime = 0;
-    wrongSound.play().catch(()=>{});
-
     lives--;
     updateLivesDisplay();
     document.getElementById('message').textContent = lives > 0
@@ -112,4 +103,5 @@ document.getElementById('shop').addEventListener('click', () => {
 
 updateLivesDisplay();
 createGame();
+
 
