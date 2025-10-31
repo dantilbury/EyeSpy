@@ -6,13 +6,8 @@ const minDelta = 5;
 const maxDelta = 100;
 let currentOddIndex = null;
 
-// Create audio objects
-const correctSound = new Audio('https://www.soundjay.com/button/sounds/button-3.mp3');
-const wrongSound = new Audio('https://www.soundjay.com/button/sounds/button-10.mp3');
-
-// Preload audio
-correctSound.load();
-wrongSound.load();
+const correctSound = document.getElementById('correctSound');
+const wrongSound = document.getElementById('wrongSound');
 
 function updateLivesDisplay() {
   const livesDiv = document.getElementById('livesDisplay');
@@ -43,7 +38,6 @@ function createGame() {
     tile.style.backgroundColor = tileColor;
     tile.style.borderColor = tileColor;
 
-    // Tile click event
     tile.addEventListener('click', () => {
       handleTileClick(i === currentOddIndex, tile);
     });
@@ -56,9 +50,8 @@ function handleTileClick(isCorrect, tileClicked) {
   const gameTiles = document.getElementById('game').querySelectorAll('.tile');
 
   if (isCorrect) {
-    // Play correct sound
     correctSound.currentTime = 0;
-    correctSound.play().catch(() => {});
+    correctSound.play().catch(()=>{});
 
     tileClicked.style.transform = 'scale(1.2)';
     setTimeout(() => tileClicked.style.transform = '', 150);
@@ -73,9 +66,8 @@ function handleTileClick(isCorrect, tileClicked) {
     createGame();
     document.getElementById('message').textContent = '';
   } else {
-    // Play wrong sound
     wrongSound.currentTime = 0;
-    wrongSound.play().catch(() => {});
+    wrongSound.play().catch(()=>{});
 
     lives--;
     updateLivesDisplay();
@@ -83,7 +75,6 @@ function handleTileClick(isCorrect, tileClicked) {
       ? 'Wrong! Life used. Click any tile to continue.'
       : 'Game Over! Click any tile to restart.';
 
-    // Highlight correct tile
     gameTiles[currentOddIndex].classList.add('highlight');
 
     gameTiles.forEach(tile => {
@@ -110,7 +101,7 @@ function restartGame() {
   createGame();
 }
 
-// Bottom buttons logic (redirects)
+// Bottom buttons
 document.getElementById('buyCredits').addEventListener('click', () => {
   window.location.href = 'https://yourBuyCreditsPage.com';
 });
