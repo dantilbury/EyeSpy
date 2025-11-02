@@ -6,6 +6,16 @@ const minDelta = 5;
 const maxDelta = 100;
 let currentOddIndex = null;
 
+// ---------- LEADERBOARD CONFIG ----------
+let playerName = "";
+while (!playerName) {
+  playerName = prompt("Enter your name for the leaderboard:");
+}
+
+const SUPABASE_URL = "https://whuqcocmiarkuzbjqfbc.supabase.co"; // replace with your project URL
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndodXFjb2NtaWFya3V6YmpxZmJjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIxMTM5NjAsImV4cCI6MjA3NzY4OTk2MH0.gM6ukWGy3g4bgu9D6lfxEGpxnH6N8Ca5RrUalqvFi9g";
+
+// ---------- EXISTING GAME FUNCTIONS ----------
 function updateLivesDisplay() {
   const livesDiv = document.getElementById('livesDisplay');
   livesDiv.textContent = `Lives: ${lives}`;
@@ -64,10 +74,11 @@ function handleTileClick(isCorrect, tileClicked) {
       document.getElementById('highScore').textContent = `Highest Score: ${highScore}`;
     }
 
+    submitCurrentScore(); // <-- submit to leaderboard after each correct tile
+
     createGame();
     document.getElementById('message').textContent = '';
   } else {
-    // lose a life or restart if already at 0
     if (lives > 0) {
       lives = 0;
       document.getElementById('message').textContent = 'Wrong! You’re on your last chance.';
@@ -118,5 +129,68 @@ document.getElementById('goPremium').addEventListener('click', () => {
   window.location.href = 'https://yourPremiumPage.com';
 });
 
+// ---------- LEADERBOARD FUNCTIONS ----------
+
+// submit a score to the leaderboard
+async function submitScore(playerName, score) {
+  try {
+    await fetch(`${SUPABASE_URL}/rest/v1/leaderboard`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        apikey: SUPABASE_KEY,
+        Authorization: `Bearer ${SUPABASE_KEY}`,
+      },
+      body: JSON.stringify({ name: playerName, score: score }),
+    });
+  } catch (err) {
+    console.error("Leaderboard submit failed:", err);
+  }
+}
+
+// fetch top 10 scores from the leaderboard
+async function fetchTopScores() {
+  try {
+    const response = await fetch(
+      `${SUPABASE_URL}/rest/v1/leaderboard?select=name,score&order=score.desc&limit=10`,
+      {
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${SUPABASE_KEY}`,
+        },
+      }
+    );
+    return await response.json();
+  } catch (err) {
+    console.error("Leaderboard fetch failed:", err);
+    return [];
+  }
+}
+
+// submit current score helper
+function submitCurrentScore() {
+  submitScore(playerName, score);
+}
+
+// refresh leaderboard display
+async function refreshLeaderboard() {
+  const topScores = await fetchTopScores();
+  const ol = document.getElementById('topScores');
+  if (!ol) return; // just in case
+  ol.innerHTML = "";
+  topScores.forEach(entry => {
+    const li = document.createElement('li');
+    li.textContent = `${entry.name}: ${entry.score}`;
+    ol.appendChild(li);
+  });
+}
+
+// refresh every 5 seconds
+setInterval(refreshLeaderboard, 5000);
+refreshLeaderboard(); // initial load
+
+// ---------- INITIALIZE ----------
 updateLivesDisplay();
 createGame();
+
+
