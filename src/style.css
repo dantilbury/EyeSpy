@@ -90,5 +90,22 @@ footer {
   color: #555;
   text-align: center;
 }
+.fade-out {
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.fade-in {
+  opacity: 1;
+  transition: opacity 0.8s ease;
+}
+.flash {
+  animation: flash 0.8s infinite alternate;
+}
+
+@keyframes flash {
+  from { opacity: 1; }
+  to { opacity: 0.3; }
+}
 
 
