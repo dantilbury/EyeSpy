@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EyeSpy - Checkout</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+<h1>Buy Credits</h1>
+
+<div id="checkout">
+  <label for="credits">Select number of credits:</label>
+  <select id="credits">
+    <option value="10">10 Credits - £1.00</option>
+    <option value="25">25 Credits - £2.00</option>
+    <option value="50">50 Credits - £3.00</option>
+  </select>
+  <button id="payButton">Pay Securely</button>
+</div>
+
+<footer id="footer">&copy; 2025 EyeSpy. All rights reserved.</footer>
+
+<script>
+const payButton = document.getElementById('payButton');
+const stripe = Stripe('YOUR_STRIPE_PUBLISHABLE_KEY'); // Replace with your real key
+
+payButton.addEventListener('click', async () => {
+  const credits = document.getElementById('credits').value;
+
+  const response = await fetch('http://localhost:4242/create-checkout-session', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({credits})
+  });
+
+  const session = await response.json();
+  await stripe.redirectToCheckout({ sessionId: session.id });
+});
+</script>
+</body>
+</html>
+
