@@ -23,6 +23,10 @@ function updateLivesDisplay() {
   }
 }
 
+let timerBorder = document.getElementById('timerBorder');
+let borderTimer;
+
+
 function createGame() {
   const game = document.getElementById('game');
   game.innerHTML = '';
@@ -50,7 +54,9 @@ function createGame() {
       handleTileClick(i === currentOddIndex, tile);
     });
 
-    game.appendChild(tile);
+startTimerBorder(baseColor);
+   
+game.appendChild(tile);
   }
 
   // start timer if player has passed level 20
@@ -147,6 +153,40 @@ document.getElementById('buyLives').addEventListener('click', () => {
 document.getElementById('goPremium').addEventListener('click', () => {
   window.location.href = 'https://yourPremiumPage.com';
 });
+
+function startTimerBorder(color) {
+  clearTimeout(borderTimer);
+  timerBorder.style.borderColor = color;
+  timerBorder.style.width = "95vmin";
+  timerBorder.style.height = "95vmin";
+  timerBorder.style.transition = "none";
+
+  // force style recalculation
+  void timerBorder.offsetWidth;
+
+  timerBorder.style.transition = "all 3s linear";
+  timerBorder.style.width = "10vmin";
+  timerBorder.style.height = "10vmin";
+
+  // When 3 seconds pass — time runs out
+  borderTimer = setTimeout(() => {
+    handleTimeUp();
+  }, 3000);
+}
+
+function handleTimeUp() {
+  if (lives > 0) {
+    lives = 0;
+    updateLivesDisplay();
+    document.getElementById('message').textContent = 'Time’s up!';
+    setTimeout(createGame, 1000);
+  } else {
+    document.getElementById('message').textContent = 'Game Over! Restarting...';
+    setTimeout(restartGame, 1500);
+  }
+}
+
+
 
 // ---------- INITIALIZE ----------
 updateLivesDisplay();
