@@ -9,6 +9,12 @@ let currentOddIndex = null;
 let timer; 
 let timeLimit = 3000; // 3 seconds
 
+
+
+
+
+
+
 // ---------- GAME FUNCTIONS ----------
 function updateLivesDisplay() {
   const livesDiv = document.getElementById('livesDisplay');
@@ -22,8 +28,6 @@ function updateLivesDisplay() {
     livesDiv.classList.remove('flash');
   }
 }
-
-
 
 function createGame() {
   const game = document.getElementById('game');
@@ -48,62 +52,11 @@ function createGame() {
     tile.style.backgroundColor = tileColor;
     tile.style.borderColor = tileColor;
 
-let timerTimeout;
-
-function startTimerBorder(color) {
-  const border = document.getElementById('timerBorder');
-  border.style.borderColor = color;
-  border.style.inset = '0'; // start fully around grid
-
-  // reset transition for replay
-  border.style.transition = 'none';
-  border.style.inset = '0';
-  void border.offsetWidth; // force reflow
-  border.style.transition = 'all 3s linear';
-
-  // animate shrinking inward
-  border.style.inset = '160px'; // how far it closes in (half of grid size)
-
-  clearTimeout(timerTimeout);
-  timerTimeout = setTimeout(() => {
-    handleTimerExpired();
-  }, 3000);
-}
-
-function resetTimerBorder() {
-  const border = document.getElementById('timerBorder');
-  border.style.transition = 'none';
-  border.style.inset = '0';
-  border.style.borderColor = 'transparent';
-  clearTimeout(timerTimeout);
-}
-
-function handleTimerExpired() {
-  resetTimerBorder();
-
-  if (lives > 0) {
-    lives = 0;
-    document.getElementById('message').textContent = 'Time’s up! You’re on your last chance.';
-    updateLivesDisplay();
-    setTimeout(() => {
-      createGame();
-    }, 1000);
-  } else {
-    document.getElementById('message').textContent = 'Out of time! Game over.';
-    setTimeout(() => {
-      restartGame();
-    }, 1500);
-  }
-}
-
-
     tile.addEventListener('click', () => {
       handleTileClick(i === currentOddIndex, tile);
     });
-    
-    startTimerBorder(baseColor);
 
-    game.appendChild(tile)
+    game.appendChild(tile);
   }
 
   // start timer if player has passed level 20
@@ -130,6 +83,8 @@ function handleTileClick(isCorrect, tileClicked) {
       highScore = score;
       document.getElementById('highScore').textContent = `Highest Score: ${highScore}`;
     }
+
+
 
     createGame();
     document.getElementById('message').textContent = '';
@@ -201,6 +156,5 @@ document.getElementById('goPremium').addEventListener('click', () => {
   window.location.href = 'https://yourPremiumPage.com';
 });
 
-// ---------- INITIALIZE ----------
 updateLivesDisplay();
 createGame();
