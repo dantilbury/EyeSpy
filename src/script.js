@@ -23,8 +23,6 @@ function updateLivesDisplay() {
   }
 }
 
-let timerBorder = document.getElementById('timerBorder');
-let borderTimer;
 
 
 function createGame() {
@@ -50,13 +48,62 @@ function createGame() {
     tile.style.backgroundColor = tileColor;
     tile.style.borderColor = tileColor;
 
+let timerTimeout;
+
+function startTimerBorder(color) {
+  const border = document.getElementById('timerBorder');
+  border.style.borderColor = color;
+  border.style.inset = '0'; // start fully around grid
+
+  // reset transition for replay
+  border.style.transition = 'none';
+  border.style.inset = '0';
+  void border.offsetWidth; // force reflow
+  border.style.transition = 'all 3s linear';
+
+  // animate shrinking inward
+  border.style.inset = '160px'; // how far it closes in (half of grid size)
+
+  clearTimeout(timerTimeout);
+  timerTimeout = setTimeout(() => {
+    handleTimerExpired();
+  }, 3000);
+}
+
+function resetTimerBorder() {
+  const border = document.getElementById('timerBorder');
+  border.style.transition = 'none';
+  border.style.inset = '0';
+  border.style.borderColor = 'transparent';
+  clearTimeout(timerTimeout);
+}
+
+function handleTimerExpired() {
+  resetTimerBorder();
+
+  if (lives > 0) {
+    lives = 0;
+    document.getElementById('message').textContent = 'Time’s up! You’re on your last chance.';
+    updateLivesDisplay();
+    setTimeout(() => {
+      createGame();
+    }, 1000);
+  } else {
+    document.getElementById('message').textContent = 'Out of time! Game over.';
+    setTimeout(() => {
+      restartGame();
+    }, 1500);
+  }
+}
+
+
     tile.addEventListener('click', () => {
       handleTileClick(i === currentOddIndex, tile);
     });
+    
+    startTimerBorder(baseColor);
 
-startTimerBorder(baseColor);
-   
-game.appendChild(tile);
+    game.appendChild(tile)
   }
 
   // start timer if player has passed level 20
@@ -154,41 +201,6 @@ document.getElementById('goPremium').addEventListener('click', () => {
   window.location.href = 'https://yourPremiumPage.com';
 });
 
-function startTimerBorder(color) {
-  clearTimeout(borderTimer);
-  timerBorder.style.borderColor = color;
-  timerBorder.style.width = "95vmin";
-  timerBorder.style.height = "95vmin";
-  timerBorder.style.transition = "none";
-
-  // force style recalculation
-  void timerBorder.offsetWidth;
-
-  timerBorder.style.transition = "all 3s linear";
-  timerBorder.style.width = "10vmin";
-  timerBorder.style.height = "10vmin";
-
-  // When 3 seconds pass — time runs out
-  borderTimer = setTimeout(() => {
-    handleTimeUp();
-  }, 3000);
-}
-
-function handleTimeUp() {
-  if (lives > 0) {
-    lives = 0;
-    updateLivesDisplay();
-    document.getElementById('message').textContent = 'Time’s up!';
-    setTimeout(createGame, 1000);
-  } else {
-    document.getElementById('message').textContent = 'Game Over! Restarting...';
-    setTimeout(restartGame, 1500);
-  }
-}
-
-
-
 // ---------- INITIALIZE ----------
 updateLivesDisplay();
 createGame();
-
