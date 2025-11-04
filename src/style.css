@@ -122,6 +122,39 @@ footer {
   transform: scale(1.05); /* subtle hover effect consistent with tiles */
 }
 
+/* ========================================
+   NAVIGATION MENU
+   ======================================== */
+.main-nav {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 15px 0;
+  margin-bottom: 10px;
+  background-color: rgba(106, 215, 255, 0.1);
+  border-radius: 10px;
+  width: 90%;
+  max-width: 600px;
+}
+
+.main-nav a {
+  color: #4bb0e3;
+  text-decoration: none;
+  font-size: 1.1em;
+  padding: 8px 15px;
+  border-radius: 5px;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.main-nav a:hover {
+  background-color: #6ad7ff;
+  color: white;
+}
+
+.main-nav a:active {
+  transform: scale(0.95);
+}
 
 @keyframes flash {
   from { opacity: 1; }
