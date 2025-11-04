@@ -83,44 +83,24 @@
 
 <body>
   <!-- ========================================
-       HEADER
+       GAME CONTENT
        ======================================== -->
-  <header>
-    <h1>EyeSpy</h1>
-  </header>
+  <h1>EyeSpy</h1>
 
-  <!-- ========================================
-       MAIN GAME AREA
-       ======================================== -->
-  <main>
-    <!-- Scoreboard Section -->
-    <section id="scoreboard" aria-label="Game statistics">
-      <div id="currentScore" aria-live="polite">Current Score: 0</div>
-      <div id="highScore" aria-live="polite">Highest Score: 0</div>
-      <div id="livesDisplay" aria-live="polite">Lives: 1</div>
-    </section>
+  <div id="scoreboard">
+    <div id="currentScore">Current Score: 0</div>
+    <div id="highScore">Highest Score: 0</div>
+    <div id="livesDisplay">Lives: 1</div>
+  </div>
 
-    <!-- Restart Button -->
-    <button id="restartButton" class="restart-btn" aria-label="Restart game">
-      Restart
-    </button>
+  <button id="restartButton" class="restart-btn">Restart</button>
+  <div id="game"></div>
+  <div id="message"></div>
 
-    <!-- Game Grid -->
-    <div id="game" role="application" aria-label="Color matching game grid"></div>
-
-    <!-- Game Messages -->
-    <div id="message" role="status" aria-live="assertive"></div>
-
-    <!-- Action Buttons -->
-    <nav class="bottom-buttons" aria-label="Game options">
-      <button id="buyLives" aria-label="Purchase additional lives">
-        Buy Lives
-      </button>
-      <button id="goPremium" aria-label="Upgrade to premium version">
-        Go Premium
-      </button>
-    </nav>
-  </main>
+  <div class="bottom-buttons">
+    <button id="buyLives">Buy Lives</button>
+    <button id="goPremium">Go Premium</button>
+  </div>
 
   <!-- ========================================
        FOOTER
