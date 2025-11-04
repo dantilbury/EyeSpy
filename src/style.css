@@ -103,6 +103,26 @@ footer {
   animation: flash 0.8s infinite alternate;
 }
 
+
+#restartButton {
+  display: block;
+  margin: 15px auto;        /* consistent spacing like other buttons */
+  padding: 10px 20px;
+  background-color: #ff5757; /* matches your color scheme */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+#restartButton:hover {
+  background-color: #ff3b3b;
+  transform: scale(1.05); /* subtle hover effect consistent with tiles */
+}
+
+
 @keyframes flash {
   from { opacity: 1; }
   to { opacity: 0.3; }

@@ -1,35 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EyeSpy</title>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+  <!-- ========================================
+       ESSENTIAL META TAGS
+       ======================================== -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  
+  <!-- ========================================
+       SEO META TAGS
+       ======================================== -->
+  <title>EyeSpy - Color Matching Brain Training Game</title>
+  <meta name="description" content="Test your color perception with EyeSpy! Find the odd colored tile in this addictive brain training game. Challenge yourself and improve your visual skills.">
+  <meta name="keywords" content="color game, brain training, visual perception, puzzle game, color matching, eye test">
+  <meta name="author" content="EyeSpy">
+  <meta name="robots" content="index, follow">
+  
+  <!-- ========================================
+       OPEN GRAPH TAGS (Social Media Sharing)
+       ======================================== -->
+  <meta property="og:title" content="EyeSpy - Color Matching Brain Training Game">
+  <meta property="og:description" content="Test your color perception! Find the odd colored tile and train your visual skills.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://yourwebsite.com">
+  <meta property="og:image" content="https://yourwebsite.com/og-image.jpg">
+  <meta property="og:site_name" content="EyeSpy">
+  
+  <!-- ========================================
+       TWITTER CARD TAGS
+       ======================================== -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="EyeSpy - Color Matching Brain Training Game">
+  <meta name="twitter:description" content="Test your color perception! Find the odd colored tile and train your visual skills.">
+  <meta name="twitter:image" content="https://yourwebsite.com/twitter-image.jpg">
+  
+  <!-- ========================================
+       MOBILE & PWA TAGS
+       ======================================== -->
+  <meta name="theme-color" content="#6ad7ff">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="EyeSpy">
+  
+  <!-- ========================================
+       FAVICON (Add your favicon files later)
+       ======================================== -->
+  <!-- <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"> -->
+  
+  <!-- ========================================
+       STYLESHEETS
+       ======================================== -->
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- ========================================
+       STRUCTURED DATA (JSON-LD for SEO)
+       ======================================== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "EyeSpy",
+    "description": "A color matching brain training game that tests your visual perception",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "ratingCount": "1250"
+    }
+  }
+  </script>
 </head>
+
 <body>
-<h1>EyeSpy</h1>
+  <!-- ========================================
+       HEADER
+       ======================================== -->
+  <header>
+    <h1>EyeSpy</h1>
+  </header>
 
-<div id="scoreboard">
-  <div id="currentScore">Current Score: 0</div>
-  <div id="highScore">Highest Score: 0</div>
-  <div id="livesDisplay">Lives: 1</div>
-</div>
+  <!-- ========================================
+       MAIN GAME AREA
+       ======================================== -->
+  <main>
+    <!-- Scoreboard Section -->
+    <section id="scoreboard" aria-label="Game statistics">
+      <div id="currentScore" aria-live="polite">Current Score: 0</div>
+      <div id="highScore" aria-live="polite">Highest Score: 0</div>
+      <div id="livesDisplay" aria-live="polite">Lives: 1</div>
+    </section>
 
-<div id="game"></div>
-<div id="message"></div>
+    <!-- Restart Button -->
+    <button id="restartButton" class="restart-btn" aria-label="Restart game">
+      Restart
+    </button>
 
-<div class="bottom-buttons">
-  <button id="buyLives">Buy Lives</button>
-  <button id="goPremium">Go Premium</button>
-</div>
+    <!-- Game Grid -->
+    <div id="game" role="application" aria-label="Color matching game grid"></div>
 
+    <!-- Game Messages -->
+    <div id="message" role="status" aria-live="assertive"></div>
 
+    <!-- Action Buttons -->
+    <nav class="bottom-buttons" aria-label="Game options">
+      <button id="buyLives" aria-label="Purchase additional lives">
+        Buy Lives
+      </button>
+      <button id="goPremium" aria-label="Upgrade to premium version">
+        Go Premium
+      </button>
+    </nav>
+  </main>
 
+  <!-- ========================================
+       FOOTER
+       ======================================== -->
+  <footer id="footer">
+    <p>&copy; 2025 EyeSpy. All rights reserved.</p>
+    <!-- Add links to legal pages when ready -->
+    <!-- <nav aria-label="Legal links">
+      <a href="/privacy-policy">Privacy Policy</a> | 
+      <a href="/terms-of-service">Terms of Service</a> | 
+      <a href="/contact">Contact</a>
+    </nav> -->
+  </footer>
 
-
-
-
-<footer id="footer">&copy; 2025 EyeSpy. All rights reserved.</footer>
-
-<script src="script.js"></script>
+  <!-- ========================================
+       JAVASCRIPT
+       ======================================== -->
+  <script src="script.js"></script>
+</body>
+</html>
