@@ -25,10 +25,10 @@ Spot it before you run out of lives.
 
 ## 🧠 Future Plans
 - Add player leaderboard  
-- Mobile optimization (PWA support)  
+- Mobile optimization (PWA support) 
 - More game modes (timed rounds, color themes)  
 - Optional ad or reward system  
 
 ---
 
-## 🧩 Project Structure
+
