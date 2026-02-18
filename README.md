@@ -1,34 +1,33 @@
-# 👁️ EyeSpy
+# EyeSpy 🎨
 
-EyeSpy is a fun, fast-paced color perception game that challenges how sharp your eyes really are.  
-Each round presents a grid of colored tiles — only one is slightly different.  
-Spot it before you run out of lives.
+A fast-paced colour perception browser game where players must quickly spot the tile with the slightly different shade before time runs out.
 
----
+## 🔗 Live Demo
+Play here: https://dantilbury.github.io/EyeSpy/
 
-## 🎮 How to Play
-1. Click the tile that looks *just a little* different in color.  
-2. Each correct answer earns a point and makes the colors blend closer.  
-3. You start with 1 life — lose it if you choose wrong.  
-4. See how high you can score before it gets too tricky.
+## 🛠 Tech Stack
+- HTML
+- CSS
+- JavaScript
+- Git & GitHub Pages for deployment
 
----
+## 🎮 Features
+- Increasing difficulty as colours become more similar
+- Score tracking based on correct selections
+- Instant visual feedback for right and wrong choices
+- Simple, responsive browser gameplay
 
-## ✨ Features
-- Gradual difficulty curve (from easy to subtle)  
-- Pulse animation to show correct tiles  
-- Sound feedback for right/wrong guesses  
-- Clean, kid-friendly interface  
-- Built-in score tracking  
+## 📦 How to Run Locally
+1. Clone the repository:
+2. Open `index.html` in your browser.
 
----
-
-## 🧠 Future Plans
-- Add player leaderboard  
-- Mobile optimization (PWA support) 
-- More game modes (timed rounds, color themes)  
-- Optional ad or reward system  
+## 📚 What I Learned
+- Structuring a clean front-end project architecture
+- Managing version control with Git and GitHub
+- Deploying a live web application using GitHub Pages
+- Improving UI clarity and gameplay feedback
 
 ---
 
+Built as a personal project to develop real-world software development skills.
 
