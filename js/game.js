@@ -200,13 +200,7 @@ function restartGame() {
 // ========================================
 // EVENT LISTENERS
 // ========================================
-document.getElementById('buyLives').addEventListener('click', function() {
-  window.location.href = 'https://yourBuyLivesPage.com';
-});
 
-document.getElementById('goPremium').addEventListener('click', function() {
-  window.location.href = 'https://yourPremiumPage.com';
-});
 
 document.getElementById('restartButton').addEventListener('click', function() {
   resetGameState();
